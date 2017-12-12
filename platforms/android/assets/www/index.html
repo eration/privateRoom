@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <link rel="stylesheet" type="text/css" href="jqm/jquery.mobile.flatui.css" />
+    <title>Hello World</title>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="jqm/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="jqm/jquery.mobile-1.4.5.min.js"></script>
+</head>
+
+<body>
+<!--    loginPage-->
+    <div data-role="page" id="loginPage">
+        <br><br><br><br>
+        <input type="text" value="" id="username"><br>
+        <input type="password" value="" id="password"><br>
+        <center>
+            <a href="#" data-role="button">Login</a><br>
+            <a href="#registerPage">register</a>
+        </center>
+    </div>
+<!--    registerPage-->
+    <div data-role="page" id="registerPage">
+        <div data-role="header">
+            <h3>Register</h3>
+        </div>
+        <div data-role="content">
+            <br><br><br>
+            <input type="text" value="" id="regisName" maxlength="20" placeholder="ผู้ใช้"><br>
+            <input type="password" value="" id="regisPass" maxlength="20" placeholder="รหัสผ่าน"><br>
+            <input type="password" value="" id="regisPassValid" maxlength="20" placeholder="ยืนยันรหัสผ่าน"><br>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-role="button" id="registerBtn">register</a></li>
+                    <li><a href="#" data-role="button" data-rel="back">Back</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#registerBtn").click(function(){
+            var regisName = $("#regisName").val();
+            var regisPass = $("#regisPass").val();
+            var regisPassValid = $("#regisPassValid").val();
+            if (regisName == "" || regisPass == "") {
+                alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+            } else if (regisPass != regisPassValid) {
+                alert("รหัสผ่านไม่ตรงกันกรุณากรอกใหม่");
+                $("#regisPass").val("");
+                $("#regisPassValid").val("");
+            } else {
+                $.post('http://eration.esy.es/roomPrivate/register.php',{
+                    name : regisName,
+                    pass : regisPass
+                },function(data,status){
+                    if (data == -1) {
+                        alert("ชื่อผู้ใช้ซ้ำ");
+                    }
+                    alert(data);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

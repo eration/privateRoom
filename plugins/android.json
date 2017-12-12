@@ -1,0 +1,49 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "privateRoom.triples.com"
+        }
+    }
+}
