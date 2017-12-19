@@ -15,13 +15,24 @@
 <body>
 <!--    loginPage-->
     <div data-role="page" id="loginPage">
-        <br><br><br><br>
-        <input type="text" value="" id="username"><br>
-        <input type="password" value="" id="password"><br>
-        <center>
-            <a href="#" data-role="button">Login</a><br>
-            <a href="#registerPage">register</a>
-        </center>
+        <div data-role="header">
+            <h3>PrivateRoom</h3>
+        </div>
+        <div data-role="content">
+            <br>
+            <br>
+            <br><br><br>
+            <input type="text" value="eration" id="username" placeholder="ชื่อผู้ใช้"><br>
+            <input type="password" value="eration01" id="password" placeholder="รหัสผ่าน"><br>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-role="button" id="loginBtn">Login</a></li>
+                    <li><a href="#registerPage" data-role="button">register</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 <!--    registerPage-->
     <div data-role="page" id="registerPage">
@@ -30,9 +41,9 @@
         </div>
         <div data-role="content">
             <br><br><br>
-            <input type="text" value="" id="regisName" maxlength="20" placeholder="ผู้ใช้"><br>
-            <input type="password" value="" id="regisPass" maxlength="20" placeholder="รหัสผ่าน"><br>
-            <input type="password" value="" id="regisPassValid" maxlength="20" placeholder="ยืนยันรหัสผ่าน"><br>
+            <input type="text" value="eration" id="regisName" maxlength="20" placeholder="ผู้ใช้"><br>
+            <input type="password" value="eration01" id="regisPass" maxlength="20" placeholder="รหัสผ่าน"><br>
+            <input type="password" value="eration01" id="regisPassValid" maxlength="20" placeholder="ยืนยันรหัสผ่าน"><br>
         </div>
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar">
@@ -43,30 +54,142 @@
             </div>
         </div>
     </div>
+    <!--  userDetailPage-->
+    <div data-role="page" id="userDetailPage">
+      <div data-role="header">
+        <h3>PrivateRoom</h3>
+      </div>
+      <div data-role="content">
+        <center>
+          <label for="" id="showUserId"></label>
+          <label for="" id="showUserName"></label>
+          <label for="" id="showUserCoin"></label>
+          <br><br>
+          <a href="#newRoomPage" data-role="button" data-icon="plus">สร้างห้อง</a>
+          <a href="#loginPage" data-role="button" data-icon="action">Logout</a>
+        </center>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><a href="" data-role="button" data-icon="user" data-theme="b"></a></li>
+            <li><a href="" data-role="button" data-icon="edit"></a></li>
+            <li><a href="" data-role="button" data-icon="star"></a></li>
+            <li><a href="" data-role="button" data-icon="search"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- newRoomPage -->
+    <div data-role="page" id="newRoomPage">
+      <div data-role="header">
+        <h3>PrivateRoom</h3>
+      </div>
+      <div data-role="content">
+        <label for="">ชื่อห้อง</label>
+        <input type="text" placeholder="ชื่อห้อง" value="" id="newRoomName">
+        <label for="">ราคาห้อง</label>
+        <input type="text" placeholder="ราคาห้อง" value="" id="newRoomPrice" onkeyup="checkNum(this);">
+        <label for="">ระยะเวลาในการตัดรอบ</label>
+        <input type="text" placeholder="ระยะเวลาในการตัดรอบ" value="" onkeyup="checkNum(this);" id="newRoomTime">
+        <label for="">เกี่ยวกับห้อง</label>
+        <textarea name="" id="newRoomText"></textarea>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><a href="" data-role="button" data-icon="plus">ยืนยัน</a></li>
+            <li><a href="" data-role="button" data-icon="back" data-rel="back">ย้อนกลับ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--
+  div[data-role="page"]>(div[data-role="header"]>h3)+div[data-role="content"]+div[data-role="footer" data-position="fixed"]>[data-role="navbar"]>ul>(li>a[data-role="button"])*3
+  -->
     <script>
-        $("#registerBtn").click(function(){
-            var regisName = $("#regisName").val();
-            var regisPass = $("#regisPass").val();
-            var regisPassValid = $("#regisPassValid").val();
-            if (regisName == "" || regisPass == "") {
-                alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-            } else if (regisPass != regisPassValid) {
-                alert("รหัสผ่านไม่ตรงกันกรุณากรอกใหม่");
-                $("#regisPass").val("");
-                $("#regisPassValid").val("");
-            } else {
-                $.post('http://eration.esy.es/roomPrivate/register.php',{
-                    name : regisName,
-                    pass : regisPass
-                },function(data,status){
-                    if (data == -1) {
-                        alert("ชื่อผู้ใช้ซ้ำ");
-                    }
-                    alert(data);
-                });
-            }
+    function myLoading(showText) {
+      $.mobile.loading( 'show', {
+	      text: showText,
+	      textVisible: true,
+	      theme: 'z',
+	      html: ""
+      });
+    }
+
+    function hideLoading() {
+      $.mobile.loading('hide');
+    }
+
+    var url = "http://192.168.1.17:7777";
+    $("#registerBtn").click(function(){
+      myLoading("Loading");
+      var regisName = $("#regisName").val();
+      var regisPass = $("#regisPass").val();
+      var regisPassValid = $("#regisPassValid").val();
+      if (regisName == "" || regisPass == "") {
+        alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+      } else if (regisPass != regisPassValid) {
+        alert("รหัสผ่านไม่ตรงกันกรุณากรอกใหม่");
+        $("#regisPass").val("");
+        $("#regisPassValid").val("");
+      } else {
+        $.post(url+"/api/user/insert",{
+          username : regisName,
+          password : regisPass
+      },function(data,status){
+          if (data == "11000") {
+            alert("ชื่อผู้ใช้ซ้ำ");
+          } else {
+            alert("สมัครสมาชิกเรียบร้อย");
+            $.mobile.changePage("#loginPage");
+            $("#regisName").val("");
+            $("#regisPass").val("");
+            $("#regisPassValid").val("");
+          }
         });
-    </script>
+      }
+      hideLoading();
+    });
+
+    var userId;
+    var userDetail;
+
+    $("#loginBtn").click(function(){
+      myLoading("Loading");
+      var loginName = $("#username").val();
+      var loginPass = $("#password").val();
+      if (loginName == "" || loginPass == "") {
+        alert ("กรุณากรอกข้อมูลให้ครบถ้วน");
+      } else {
+        console.log("before Send to server");
+        $.post(url+"/api/user/login",{
+          "username" : loginName,
+          "password" : loginPass
+        },function(data,status){
+          console.log("user id");
+          console.log(JSON.stringify(data._id));
+          userId = data._id;
+          $.post(url+"/api/user/getDetail",{
+            "_id" : userId
+          },function(data,status){
+            console.log("user Detail");
+            console.log(JSON.stringify(data));
+            userDetail = data;
+            $("#showUserId").html("id : " + userDetail.userId);
+            $("#showUserName").html("username : " + loginName);
+            $("#showUserCoin").html("coin : " + userDetail.coin);
+            $.mobile.changePage("#userDetailPage");
+          });
+        });
+      }
+      hideLoading();
+    });
+
+    function checkNum(item){
+      
+    }
+</script>
 </body>
 
 </html>
